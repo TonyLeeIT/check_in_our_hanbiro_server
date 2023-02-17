@@ -24,9 +24,9 @@ const register = async (userid, password) => {
   let displayName = "";
   try {
     displayName = User.find((user) => user.id === userid).name;
-    if (displayName) throw new Error(`Userid ${userid} in blacklist`);
+    if (!displayName) throw new Error(`Userid ${userid} in blacklist`);
   } catch (error) {
-    throw new Error(`Userid ${userid} in blacklist`);
+    throw new Error(error.message);
   }
   const data = {
     userid,
