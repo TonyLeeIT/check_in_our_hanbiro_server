@@ -42,7 +42,7 @@ const connectDb = async () => {
     log.info("Database connection established.");
   } catch (e) {
     log.info("Database connection failed", e);
-    //sendMsgTelegramByShellScrip("Database postgres connection failed");
+    sendMsgTelegramByShellScrip("Database postgres connection failed");
     //process.exit(1);
   }
 };

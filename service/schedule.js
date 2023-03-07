@@ -1,8 +1,22 @@
 const { ScheduleModel } = require("../models");
 
 const saveSchedule = async (userid, dayOffs) => {
-  await updateSchedule(userid, dayOffs);
-  return await ScheduleModel.create({ userid, dayOffs });
+  const schedules = await findScheduleByUid(userid);
+  if (schedules.length > 0) {
+    try {
+      await ScheduleModel.update(
+        { dayOffs: dayOffs },
+        { where: { id: schedules[0].id, userid: schedules[0].userid } }
+      );
+      const checkResultUpdate = await findScheduleByUid(userid);
+      return checkResultUpdate[0];
+    } catch (error) {
+      console.log(error);
+      throw new Error(err.message);
+    }
+  } else {
+    return await ScheduleModel.create({ userid, dayOffs });
+  }
 };
 
 const updateSchedule = async (userid, dayOffs) => {
@@ -43,5 +57,5 @@ module.exports = {
   findScheduleByUid,
   clearShedule,
   updateSchedule,
-  trumcateSchedule
+  trumcateSchedule,
 };
