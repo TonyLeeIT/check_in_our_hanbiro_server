@@ -162,7 +162,7 @@ const randomIntFromInterval = (min, max) => {
   await connectDb();
   app.listen(PORT, () => {
     let random30 = randomIntFromInterval(0, 25);
-    let random60 = randomIntFromInterval(30, 55);
+    let random60 = randomIntFromInterval(31, 55);
     log.info(`random30 : ${random30} random60 : ${random60}`);
 
     cron.schedule("0 * 2 1 * *", async () => {
