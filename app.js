@@ -200,10 +200,18 @@ const randomIntFromInterval = (min, max) => {
             arr.includes(new Date().getDate().toString())
               ? (isDayOff = true)
               : (isDayOff = false);
-            if (isDayOff && arr.slice(1).length == 0) {
+            if (
+              isDayOff &&
+              (hours == "17" || hours == "18") &&
+              arr.slice(1).length == 0
+            ) {
               await clearShedule(schedule.userid);
             }
-            if (isDayOff && hours == "8" && arr.slice(1).length > 0) {
+            if (
+              isDayOff &&
+              (hours == "17" || hours == "18") &&
+              arr.slice(1).length > 0
+            ) {
               log.info(`${user.name} offline today`);
               await updateSchedule(user.id, arr.slice(1).toString());
             }
