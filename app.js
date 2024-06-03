@@ -114,13 +114,15 @@ const checkInOut = async (user) => {
     const msg = today
       .toUTCString()
       .concat(`\t${user.name} check ${IN_OR_OUT} sucess`);
-    sendMsgTelegramByShellScrip(msg.toString());
+    //sendMsgTelegramByShellScrip(msg.toString());
+    sendMsgToTelegram(msg.toString());
     log.info(`${user.name} check ${IN_OR_OUT} sucess`);
   } catch (error) {
     const msg = today
       .toUTCString()
       .concat(`\t${user.name} check ${IN_OR_OUT} fail`);
-    sendMsgTelegramByShellScrip(msg);
+    //sendMsgTelegramByShellScrip(msg);
+    sendMsgToTelegram(msg);
     log.info(`${user.name} check ${IN_OR_OUT} fail`);
     log.info(error);
   }
@@ -160,7 +162,7 @@ const randomIntFromInterval = (min, max) => {
 
 (async () => {
   await connectDb();
-  app.listen(PORT, () => {
+  app.listen(PORT, async () => {
     let random30 = randomIntFromInterval(0, 25);
     let random60 = randomIntFromInterval(31, 55);
     log.info(`random30 : ${random30} random60 : ${random60}`);
@@ -229,6 +231,7 @@ const randomIntFromInterval = (min, max) => {
       log.info(".......................end job\n\n");
     });
     log.info("server is running with port : " + PORT);
-    // await checkInOut();
+    //for (const user of User)
+    //  await checkInOut(user);
   });
 })();
