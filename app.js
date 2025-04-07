@@ -63,12 +63,14 @@ const checkInOut = async (user) => {
   const currentHours = today.getHours();
 
   let btnCheckInOut = "";
+  let confirmCheckOut = "";
   if (currentHours == 9 || currentHours == 8 || currentHours == 7) {
     IN_OR_OUT = "in";
     btnCheckInOut = ".btn.btn-primary.btn-round.no-border.width-100.btn-sm";
   } else if (currentHours == 18 || currentHours == 17) {
     IN_OR_OUT = "out";
     btnCheckInOut = ".btn.btn-danger.btn-round.no-border.width-100.btn-sm";
+    confirmCheckOut = ".btn.btn-sm.btn-primary";
   }
   log.info("calling to my bot telegram ...............");
   log.info("bot said :");
@@ -103,9 +105,13 @@ const checkInOut = async (user) => {
 
     await delay(page);
 
-    if (btnCheckInOut != "") {
+    if (btnCheckInOut) {
       await page.waitForSelector(btnCheckInOut);
       await page.click(btnCheckInOut);
+      if(confirmCheckOut){
+        await page.waitForSelector(confirmCheckOut);
+        await page.click(confirmCheckOut);
+      }
     }
 
     await delay(page);
